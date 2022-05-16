@@ -81,10 +81,14 @@ def main():  # noqa: C901
 
     # If model_id is defined it means we want to load from HF
     if args.model_id:
-        print("Load custom from HF")
-        destination_path = os.path.join(args.folder, args.algo, f"{args.env}_1")
+        # Define the destination path {folder}/{algo}/{env}_{exp_id}
+        if args.exp_id == 0:
+            # Set exp_id to _1
+            destination_path = os.path.join(args.folder, args.algo, f"{args.env}_1")
+        else:
+            destination_path = os.path.join(args.folder, args.algo, f"{args.env}_{args.exp_id}")
+
         repo = Repository(destination_path, args.model_id)
-        print("Hey done")
         # repo_name = args.model_id.split("/")[1]
         # destination = os.path.join(args.folder, repo_name)
 
