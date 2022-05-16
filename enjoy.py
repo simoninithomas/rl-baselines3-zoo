@@ -62,6 +62,9 @@ def main():  # noqa: C901
     parser.add_argument(
         "--env-kwargs", type=str, nargs="+", action=StoreDict, help="Optional keyword argument to pass to the env constructor"
     )
+
+    parser.add_argument("--model-id", help="Hugging Face Repo id", default="")
+
     args = parser.parse_args()
 
     # Going through custom gym packages to let them register in the global registory
@@ -111,6 +114,14 @@ def main():  # noqa: C901
         checkpoints = sorted(checkpoints, key=step_count)
         model_path = checkpoints[-1]
         found = True
+
+    # If model_id is defined it means we want to load from HF
+    if model_id:
+        destination_path = os.path.join(args.folder, args.algo, f"{args.env}_{args.exp_id}")
+        repo = Repository(destination_path, args.model_id)
+        found = True
+        #repo_name = args.model_id.split("/")[1]
+        #destination = os.path.join(args.folder, repo_name)
 
     if not found:
         print("folder", folder)
