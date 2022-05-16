@@ -113,8 +113,8 @@ def main():  # noqa: C901
         found = True
 
     if not found:
-        print("Log path", log_path)
-        if log_path == "rl-trained-agents":
+        print("folder", folder)
+        if folder == "rl-trained-agents":
             # Download the model from Hugging Face Hub
             local_dir = f"rl-trained-agents/{algo}/{env_id}_1"
             # TODO: change to sb3
