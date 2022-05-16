@@ -80,13 +80,13 @@ def main():  # noqa: C901
         # Define the destination path {folder}/{algo}/{env}_{exp_id}
 
         # Get the latest exp_id
-        args.exp_id = get_latest_run_id(os.path.join(folder, algo), env_id)
+        exp_id = get_latest_run_id(os.path.join(folder, algo), env_id)
 
-        if args.exp_id == 0:
+        if exp_id == 0:
             # Set exp_id to _1
             destination_path = os.path.join(args.folder, args.algo, f"{args.env}_1")
         else:
-            destination_path = os.path.join(args.folder, args.algo, f"{args.env}_{args.exp_id}")
+            destination_path = os.path.join(args.folder, args.algo, f"{args.env}_{exp_id}")
 
         repo = Repository(destination_path, args.model_id)
         # repo_name = args.model_id.split("/")[1]
