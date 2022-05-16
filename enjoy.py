@@ -79,6 +79,15 @@ def main():  # noqa: C901
         args.exp_id = get_latest_run_id(os.path.join(folder, algo), env_id)
         print(f"Loading latest experiment, id={args.exp_id}")
 
+    # If model_id is defined it means we want to load from HF
+    if args.model_id:
+        print("Load custom from HF")
+        destination_path = os.path.join(args.folder, args.algo, f"{args.env}_{args.exp_id}")
+        repo = Repository(destination_path, args.model_id)
+        print("Hey done")
+        # repo_name = args.model_id.split("/")[1]
+        # destination = os.path.join(args.folder, repo_name)
+
     # Sanity checks
     if args.exp_id > 0:
         log_path = os.path.join(folder, algo, f"{env_id}_{args.exp_id}")
@@ -89,13 +98,7 @@ def main():  # noqa: C901
 
     found = False
 
-    # If model_id is defined it means we want to load from HF
-    if args.model_id:
-        destination_path = os.path.join(args.folder, args.algo, f"{args.env}_{args.exp_id}")
-        repo = Repository(destination_path, args.model_id)
-        print("Hey done")
-        # repo_name = args.model_id.split("/")[1]
-        # destination = os.path.join(args.folder, repo_name)
+
 
     for ext in ["zip"]:
         print("ext", ext)
