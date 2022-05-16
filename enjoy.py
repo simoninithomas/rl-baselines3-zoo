@@ -88,6 +88,19 @@ def main():  # noqa: C901
     #assert os.path.isdir(log_path), f"The {log_path} folder was not found"
 
     found = False
+
+    # If model_id is defined it means we want to load from HF
+    if args.model_id:
+        destination_path = os.path.join(args.folder, args.algo, f"{args.env}_{args.exp_id}")
+        repo = Repository(destination_path, args.model_id)
+        found = True
+        print("Hey done")
+        # repo_name = args.model_id.split("/")[1]
+        # destination = os.path.join(args.folder, repo_name)
+
+
+
+
     for ext in ["zip"]:
         model_path = os.path.join(log_path, f"{env_id}.{ext}")
         found = os.path.isfile(model_path)
@@ -115,13 +128,7 @@ def main():  # noqa: C901
         model_path = checkpoints[-1]
         found = True
 
-    # If model_id is defined it means we want to load from HF
-    if args.model_id:
-        destination_path = os.path.join(args.folder, args.algo, f"{args.env}_{args.exp_id}")
-        repo = Repository(destination_path, args.model_id)
-        found = True
-        #repo_name = args.model_id.split("/")[1]
-        #destination = os.path.join(args.folder, repo_name)
+
 
     if not found:
         print("folder", folder)
@@ -132,6 +139,7 @@ def main():  # noqa: C901
             clone_from = f"TestSB3/{algo}-{env_id}"
             repo = Repository(local_dir, clone_from)
             model_path = os.path.join(local_dir, f"{env_id}.zip")
+            found = True
         else:
             raise ValueError(f"No model found for {algo} on {env_id}, path: {model_path}")
 
