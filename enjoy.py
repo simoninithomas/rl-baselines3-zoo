@@ -88,6 +88,17 @@ def main():  # noqa: C901
         # repo_name = args.model_id.split("/")[1]
         # destination = os.path.join(args.folder, repo_name)
 
+    # If the folder is rl-baselines3-zoo load from the Hub
+    # official's rl-baselines-zoo trained models
+    if folder == "rl-baselines3-zoo":
+        # Get the latest exp_id + 1
+        exp_id = get_latest_run_id(os.path.join(folder, algo), env_id) + 1
+        local_dir = f"{folder}/{algo}/{env_id}_{exp_id}"
+        # TODO: change to sb3
+        clone_from = f"TestSB3/{algo}-{env_id}"
+        # Download the model from Hugging Face Hub
+        repo = Repository(local_dir, clone_from)
+
     if args.exp_id == 0:
         args.exp_id = get_latest_run_id(os.path.join(folder, algo), env_id)
         print(f"Loading latest experiment, id={args.exp_id}")
@@ -131,19 +142,7 @@ def main():  # noqa: C901
         found = True
 
     if not found:
-        # If not found but the folder is rl-trained-agents load from the Hub
-        # official's rl-baselines-zoo trained models
-        if folder == "rl-trained-agents":
-
-            # Get the latest exp_id + 1
-            exp_id = get_latest_run_id(os.path.join(folder, algo), env_id) + 1
-            local_dir = f"rl-trained-agents/{algo}/{env_id}_{exp_id}"
-            # TODO: change to sb3
-            clone_from = f"TestSB3/{algo}-{env_id}"
-            # Download the model from Hugging Face Hub
-            repo = Repository(local_dir, clone_from)
-        else:
-            raise ValueError(f"No model found for {algo} on {env_id}, path: {model_path}")
+        raise ValueError(f"No model found for {algo} on {env_id}, path: {model_path}")
 
     print(f"Loading {model_path}")
 
