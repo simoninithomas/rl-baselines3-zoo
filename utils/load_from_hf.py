@@ -19,9 +19,6 @@ def main():  # noqa: C901
     parser.add_argument("--model-id", help="Hugging Face Repo id", default="")
     parser.add_argument("--filename", help="Filename", default="")
 
-    parser.add_argument("--test", help="Hugging Face Repo id", default="")
-    parser.add_argument("--model-id", help="Hugging Face Repo id", default="")
-
     parser.add_argument("--algo", help="RL Algorithm", default="ppo", type=str, required=True,
                         choices=list(ALGOS.keys()))
     parser.add_argument("--env", help="environment ID", type=str, default="CartPole-v1")
