@@ -116,7 +116,7 @@ def main():  # noqa: C901
         found = True
 
     # If model_id is defined it means we want to load from HF
-    if model_id:
+    if args.model_id:
         destination_path = os.path.join(args.folder, args.algo, f"{args.env}_{args.exp_id}")
         repo = Repository(destination_path, args.model_id)
         found = True
