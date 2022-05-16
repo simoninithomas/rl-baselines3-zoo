@@ -32,8 +32,11 @@ def main():  # noqa: C901
 
     else:
         print("Copy")
+
         destination = os.path.join(args.folder, args.algo, f"{args.env}_{args.exp_id}")
 
+        repo_name = args.model_id.split("/")[1]
+        destination = os.path.join(args.folder, repo_name)
         repo = Repository(destination, args.model_id)
 
 
