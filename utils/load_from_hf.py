@@ -61,3 +61,7 @@ def load_from_hub(repo_id: str, filename: str) -> str:
         )
 
     return downloaded_model_file
+
+
+if __name__ == "__main__":
+    main()
