@@ -117,6 +117,7 @@ def main():  # noqa: C901
         local_dir = f"rl-trained-agents/{algo}/{env_id}_1"
         clone_from = f"TestSB3/{algo}-{env_id}"
         repo = Repository(local_dir, clone_from)
+        print("Done")
         # raise ValueError(f"No model found for {algo} on {env_id}, path: {model_path}")
 
     print(f"Loading {model_path}")
