@@ -115,7 +115,7 @@ def main():  # noqa: C901
     if not found:
         # Download the model from Hugging Face Hub
         local_dir = f"rl-trained-agents/{algo}/{env_id}_1"
-        clone_from = f"sb3/{algo}-{env_id}"
+        clone_from = f"TestSB3/{algo}-{env_id}"
         repo = Repository(local_dir, clone_from)
         # raise ValueError(f"No model found for {algo} on {env_id}, path: {model_path}")
 
