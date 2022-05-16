@@ -82,7 +82,7 @@ def main():  # noqa: C901
     else:
         log_path = os.path.join(folder, algo)
 
-    assert os.path.isdir(log_path), f"The {log_path} folder was not found"
+    #assert os.path.isdir(log_path), f"The {log_path} folder was not found"
 
     found = False
     for ext in ["zip"]:
