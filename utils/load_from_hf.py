@@ -20,7 +20,7 @@ def main():  # noqa: C901
 
     args = parser.parse_args()
 
-    if args.filename:
+    if args.filename != "":
         cached_hf_repo_path = load_from_hub(args.model_id, args.filename)
 
         move_hf_repo(cached_hf_repo_path, args.folder)
