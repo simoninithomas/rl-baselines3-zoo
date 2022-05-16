@@ -21,7 +21,7 @@ def main():  # noqa: C901
 
     parser.add_argument("--algo", help="RL Algorithm", default="ppo", type=str, required=True,
                         choices=list(ALGOS.keys()))
-    parser.add_argument("--env", help="environment ID", type=str, default="CartPole-v1")
+    parser.add_argument("--env", help="environment ID", type=str, required= True, default="CartPole-v1")
     parser.add_argument("--exp-id", help="Experiment ID (default: 0: latest, -1: no exp folder)", default=0, type=int)
 
     args = parser.parse_args()
@@ -32,7 +32,7 @@ def main():  # noqa: C901
 
     else:
         print("Copy")
-        destination = os.path.join(folder, algo, f"{args.env_id}_{args.exp_id}")
+        destination = os.path.join(args.folder, args.algo, f"{args.env_id}_{args.exp_id}")
 
         repo = Repository(destination, args.model_id)
 
