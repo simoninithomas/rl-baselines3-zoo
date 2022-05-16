@@ -78,6 +78,10 @@ def main():  # noqa: C901
     # If model_id is defined it means we want to load from HF
     if args.model_id:
         # Define the destination path {folder}/{algo}/{env}_{exp_id}
+
+        # Get the latest exp_id
+        args.exp_id = get_latest_run_id(os.path.join(folder, algo), env_id)
+
         if args.exp_id == 0:
             # Set exp_id to _1
             destination_path = os.path.join(args.folder, args.algo, f"{args.env}_1")
@@ -91,7 +95,7 @@ def main():  # noqa: C901
     if args.exp_id == 0:
         args.exp_id = get_latest_run_id(os.path.join(folder, algo), env_id)
         print(f"Loading latest experiment, id={args.exp_id}")
-        
+
     # Sanity checks
     if args.exp_id > 0:
         log_path = os.path.join(folder, algo, f"{env_id}_{args.exp_id}")
