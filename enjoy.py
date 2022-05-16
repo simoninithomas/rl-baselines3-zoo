@@ -93,15 +93,12 @@ def main():  # noqa: C901
     if args.model_id:
         destination_path = os.path.join(args.folder, args.algo, f"{args.env}_{args.exp_id}")
         repo = Repository(destination_path, args.model_id)
-        found = True
         print("Hey done")
         # repo_name = args.model_id.split("/")[1]
         # destination = os.path.join(args.folder, repo_name)
 
-
-
-
     for ext in ["zip"]:
+        print("ext", ext)
         model_path = os.path.join(log_path, f"{env_id}.{ext}")
         found = os.path.isfile(model_path)
         if found:
