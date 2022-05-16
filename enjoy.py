@@ -182,6 +182,7 @@ def main():  # noqa: C901
             "clip_range": lambda _: 0.0,
         }
 
+    print(model_path)
     model = ALGOS[algo].load(model_path, env=env, custom_objects=custom_objects, device=args.device, **kwargs)
 
     obs = env.reset()
