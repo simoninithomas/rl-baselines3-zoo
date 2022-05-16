@@ -14,6 +14,7 @@ from utils import ALGOS, create_test_env, get_latest_run_id, get_saved_hyperpara
 from utils.exp_manager import ExperimentManager
 from utils.utils import StoreDict
 
+from huggingface_hub import Repository
 
 def main():  # noqa: C901
     parser = argparse.ArgumentParser()
@@ -112,7 +113,11 @@ def main():  # noqa: C901
         found = True
 
     if not found:
-        raise ValueError(f"No model found for {algo} on {env_id}, path: {model_path}")
+        # Download the model from Hugging Face Hub
+        local_dir = f"rl-trained-agents/{algo}/{env_id}_1"
+        clone_from = f"sb3/{algo}-{env_id}"
+        repo = Repository(local_dir, clone_from)
+        # raise ValueError(f"No model found for {algo} on {env_id}, path: {model_path}")
 
     print(f"Loading {model_path}")
 
