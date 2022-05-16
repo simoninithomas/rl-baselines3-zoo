@@ -75,14 +75,13 @@ def main():  # noqa: C901
     algo = args.algo
     folder = args.folder
 
-    # If model_id is defined it means we want to load from HF
+    # If model_id args is defined, it means we want to load a custom user model from HF
     if args.model_id:
         # Define the destination path {folder}/{algo}/{env}_{exp_id}
 
-        # Get the latest exp_id
-        exp_id = get_latest_run_id(os.path.join(folder, algo), env_id)
+        # Get the latest exp_id + 1
+        exp_id = get_latest_run_id(os.path.join(folder, algo), env_id) + 1
 
-        exp_id += 1
         destination_path = os.path.join(args.folder, args.algo, f"{args.env}_{exp_id}")
 
         repo = Repository(destination_path, args.model_id)
@@ -131,18 +130,18 @@ def main():  # noqa: C901
         model_path = checkpoints[-1]
         found = True
 
-
-
     if not found:
-        print("folder", folder)
+        # If not found but the folder is rl-trained-agents load from the Hub
+        # official's rl-baselines-zoo trained models
         if folder == "rl-trained-agents":
-            # Download the model from Hugging Face Hub
-            local_dir = f"rl-trained-agents/{algo}/{env_id}_1"
+
+            # Get the latest exp_id + 1
+            exp_id = get_latest_run_id(os.path.join(folder, algo), env_id) + 1
+            local_dir = f"rl-trained-agents/{algo}/{env_id}_{exp_id}"
             # TODO: change to sb3
             clone_from = f"TestSB3/{algo}-{env_id}"
+            # Download the model from Hugging Face Hub
             repo = Repository(local_dir, clone_from)
-            model_path = os.path.join(local_dir, f"{env_id}.zip")
-            found = True
         else:
             raise ValueError(f"No model found for {algo} on {env_id}, path: {model_path}")
 
