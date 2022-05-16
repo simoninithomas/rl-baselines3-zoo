@@ -82,7 +82,7 @@ def main():  # noqa: C901
     # If model_id is defined it means we want to load from HF
     if args.model_id:
         print("Load custom from HF")
-        destination_path = os.path.join(args.folder, args.algo, f"{args.env}_{args.exp_id}")
+        destination_path = os.path.join(args.folder, args.algo, f"{args.env}_{args.exp_id}_1")
         repo = Repository(destination_path, args.model_id)
         print("Hey done")
         # repo_name = args.model_id.split("/")[1]
@@ -97,8 +97,6 @@ def main():  # noqa: C901
     assert os.path.isdir(log_path), f"The {log_path} folder was not found"
 
     found = False
-
-
 
     for ext in ["zip"]:
         print("ext", ext)
