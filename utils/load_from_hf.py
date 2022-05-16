@@ -26,6 +26,7 @@ def main():  # noqa: C901
         move_hf_repo(cached_hf_repo_path, args.folder)
 
     else:
+        print("Copy")
         repo = Repository(args.folder, args.model_id)
 
 
